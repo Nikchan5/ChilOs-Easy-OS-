@@ -15,18 +15,18 @@ start:
     mov sp, 0x7C00
     sti
 
-    mov ax, 0x03        ; Текстовый режим 80x25
+    mov ax, 0x03        ; Text mode 80x25
     int 0x10
 
-    call set_blue_background  ; Устанавливаем синий фон
-    call display_logo         ; Отображение логотипа
+    call set_blue_background  ; Set blue background
+    call display_logo         ; Display the logo
 
     mov si, welcome_msg
     call print_text
 
 main_loop:
     call get_key
-    cmp al, 0x1B        ; ESC - выход
+    cmp al, 0x1B        ; ESC - exit
     je halt_system
     cmp al, 0x08        ; Backspace
     je handle_backspace
@@ -55,7 +55,7 @@ set_blue_background:
     mov es, ax
     xor di, di
     mov cx, SCREEN_WIDTH * SCREEN_HEIGHT
-    mov ax, 0x1F20    ; Пробел (0x20) с белым текстом (0x1F) на синем фоне
+    mov ax, 0x1F20    ; Space (0x20) with white text (0x1F) on blue background
     rep stosw
     pop es
     ret
@@ -65,7 +65,7 @@ display_logo:
     mov ax, VIDEO_MEM
     mov es, ax
 
-    ; Смещаем вниз на 10 строк
+    ; Shift down by 10 lines
     mov di, (SCREEN_WIDTH * 10 * 2) + 35 * 2
 
     mov byte [es:di], '#'   ; ASCII 35
@@ -96,12 +96,11 @@ display_logo:
     mov byte [es:di + 1], 0x1F
     add di, 2
 
-    mov byte [es:di], '#'    
+    mov byte [es:di], '#'
     mov byte [es:di + 1], 0x1F  
 
     pop es
     ret
-
 
 print_text:
     lodsb
