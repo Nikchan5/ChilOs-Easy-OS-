@@ -64,41 +64,30 @@ display_logo:
     push es
     mov ax, VIDEO_MEM
     mov es, ax
-
-    ; Shift down by 10 lines
     mov di, (SCREEN_WIDTH * 10 * 2) + 35 * 2
-
-    mov byte [es:di], '#'   ; ASCII 35
+    mov byte [es:di], '#'
     mov byte [es:di + 1], 0x1F
     add di, 2
-
     mov byte [es:di], 'C'
     mov byte [es:di + 1], 0x1F
     add di, 2
-
     mov byte [es:di], 'H'
     mov byte [es:di + 1], 0x1F
     add di, 2
-
     mov byte [es:di], 'I'
     mov byte [es:di + 1], 0x1F
     add di, 2
-
     mov byte [es:di], 'L'
     mov byte [es:di + 1], 0x1F
     add di, 2
-
     mov byte [es:di], 'O'
     mov byte [es:di + 1], 0x1F
     add di, 2
-
     mov byte [es:di], 'S'
     mov byte [es:di + 1], 0x1F
     add di, 2
-
     mov byte [es:di], '#'
     mov byte [es:di + 1], 0x1F  
-
     pop es
     ret
 
